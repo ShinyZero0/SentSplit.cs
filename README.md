@@ -2,7 +2,9 @@
 
 ## Showcase
 
+Let's say you have 3 paragraphs. They are pretty hard to edit in vim as they are single lines.
 ![before](images/before.png)
+How about pressing 1 key to split them to multiple lines by sentences? Don't worry. it's reversible.
 ![after](images/after.png)
 
 ## Intro
@@ -16,6 +18,6 @@ is for using as a custom formatter for
 Assumes you have sharpjoin in PATH
 
 ## TODO:
-- [ ] ReadAllLines => StreamReader as it probably would be faster
+- [ ] ReadAllLines => StreamReader as it could be faster
 - [ ] Ignore some abbreviations e.g. e.g. after which the capitalized word will be on a new line
 - [x] Fix adding a whitespace after a paragraph
