@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Joiner;
+namespace sharpjoin;
 
 public class Program
 {
     public static void Main(string[] args)
     {
+        if (args.Length == 0)
+        {
+            Console.WriteLine("Usage: sharpjoin --join <file> or sharpjoin --split <file>");
+            return;
+        }
         switch (args[0])
         {
             case "--join":
