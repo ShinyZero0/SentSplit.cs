@@ -16,7 +16,7 @@ public class Program
             case "--split":
                 Split(args[1]);
                 break;
-            
+
             default:
                 Console.WriteLine("Usage: sharpjoin --join <file> or sharpjoin --split <file>");
                 break;
@@ -42,7 +42,7 @@ public class Program
                     paraLines.Add(localLine);
                     localI++;
                 }
-                i = localI;
+                i = localI + 1;
                 paras.Add(String.Join(" ", paraLines));
             }
             else
@@ -52,20 +52,25 @@ public class Program
         }
         paras.ForEach(p => Console.WriteLine(p));
     }
+
     public static void Split(string source)
     {
         string[] data = File.ReadAllLines(source);
-        int i = 0;
         var output = new List<string>();
         foreach (string line in data)
         {
-            string newline = Regex.Replace(line, @"([\.\?!]) [A-ZА-Я]", match => {
-                    string m = match.Value;
-                    return string.Format("{0}\n{1}", m[0], m[2]);
-                    });
-            output.Add(newline);
+                string sentence = Regex.Replace(
+                        line,
+                        @"([\.\?!]) [A-ZА-Я]",
+                        match =>
+                        {
+                        string m = match.Value;
+                        return string.Format("{0}\n{1}", m[0], m[2]);
+                        }
+                        );
+                string result = string.Format("{0}\n", sentence);
+                output.Add(result);
         }
         output.ForEach(p => Console.WriteLine(p));
-
     }
 }
