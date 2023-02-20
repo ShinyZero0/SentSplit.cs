@@ -42,8 +42,8 @@ public class Program
                     paraLines.Add(localLine);
                     localI++;
                 }
-                i = localI + 1;
-                paras.Add(String.Join(" ", paraLines));
+                i = localI;
+                paras.Add(Regex.Replace((String.Join(" ", paraLines)), " +$", ""));
             }
             else
             {
@@ -59,17 +59,17 @@ public class Program
         var output = new List<string>();
         foreach (string line in data)
         {
-                string sentence = Regex.Replace(
-                        line,
-                        @"([\.\?!]) [A-ZА-Я]",
-                        match =>
-                        {
-                        string m = match.Value;
-                        return string.Format("{0}\n{1}", m[0], m[2]);
-                        }
-                        );
-                string result = string.Format("{0}\n", sentence);
-                output.Add(result);
+            string sentence = Regex.Replace(
+                line,
+                @"([\.\?!]) [A-ZА-Я]",
+                match =>
+                {
+                    string m = match.Value;
+                    return string.Format("{0}\n{1}", m[0], m[2]);
+                }
+            );
+            string result = string.Format("{0}\n", sentence);
+            output.Add(result);
         }
         output.ForEach(p => Console.WriteLine(p));
     }
