@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Joiner;
 
@@ -7,7 +8,24 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        string[] data = File.ReadAllLines(args[0]);
+        switch (args[0])
+        {
+            case "--join":
+                Join(args[1]);
+                break;
+            case "--split":
+                Split(args[1]);
+                break;
+            
+            default:
+                Console.WriteLine("Usage: sharpjoin --join <file> or sharpjoin --split <file>");
+                break;
+        }
+    }
+
+    public static void Join(string source)
+    {
+        string[] data = File.ReadAllLines(source);
         int i = 0;
         var paras = new List<string>();
         while (i < data.Length)
@@ -31,10 +49,23 @@ public class Program
             {
                 i++;
             }
-
         }
         paras.ForEach(p => Console.WriteLine(p));
-        /* File.WriteAllLines("result.txt", paras); */
     }
-    
+    public static void Split(string source)
+    {
+        string[] data = File.ReadAllLines(source);
+        int i = 0;
+        var output = new List<string>();
+        foreach (string line in data)
+        {
+            string newline = Regex.Replace(line, @"([\.\?!]) [A-ZА-Я]", match => {
+                    string m = match.Value;
+                    return string.Format("{0}\n{1}", m[0], m[2]);
+                    });
+            output.Add(newline);
+        }
+        output.ForEach(p => Console.WriteLine(p));
+
+    }
 }
