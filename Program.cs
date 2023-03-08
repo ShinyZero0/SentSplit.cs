@@ -64,6 +64,7 @@ public class Program
         var output = new List<string>();
         foreach (string line in data)
         {
+            if (string.IsNullOrWhiteSpace(line)) continue;
             string sentence = Regex.Replace(
                 line,
                 @"([\.\?!]) [A-ZА-Я]",

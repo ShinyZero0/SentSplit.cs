@@ -5,8 +5,13 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <PublishTrimmed>true</PublishTrimmed>
+    <!-- <PublishTrimmed>false</PublishTrimmed> -->
+    <PublishAot>true</PublishAot>
     <AssemblyName>sharpjoin</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- <PackageReference Include="Microsoft.DotNet.ILCompiler ; runtime.linux-x64.Microsoft.DotNet.ILCompiler" Version="7.0.3" /> -->
+  </ItemGroup>
 
 </Project>
