@@ -67,11 +67,11 @@ public class Program
             if (string.IsNullOrWhiteSpace(line)) continue;
             string sentence = Regex.Replace(
                 line,
-                @"([\.\?!]) [A-ZА-Я—-]",
+                @"([\.\?!])\s+((--\s+)|(—\s+)?[A-ZА-Я])",
                 match =>
                 {
-                    string m = match.Value;
-                    return string.Format("{0}\n{1}", m[0], m[2]);
+                    var m = match.Groups;
+                    return string.Format("{0}\n{1}", m[1].ToString(), m[2].ToString());
                 }
             );
             string result = string.Format("{0}\n", sentence);
