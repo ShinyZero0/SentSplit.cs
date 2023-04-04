@@ -1,4 +1,4 @@
-# sharpjoin
+# SentSplit
 
 ## Showcase
 
@@ -20,7 +20,12 @@ Of course, after that it can join all sequences of lines without blank lines int
 [text.vim](text.vim) 
 is for using as a custom formatter for 
 [NeoFormat](https://github.com/sbdchd/neoformat).
-Assumes you have sharpjoin in PATH.
+Assumes you have `sentsplit` in PATH.
+
+## Building
+
+Obviously requires dotnet core 7 (will most likely work with 6 and earlier).
+Just run `make pub` and grab the executable from `out` directory in project root
 
 ## Naming
 
@@ -29,7 +34,7 @@ Later i realised it'd be cool to make it automatically format the whole file a p
 
 ## TO DO:
 
-- [ ] ReadAllLines => StreamReader as it could be faster
-- [ ] Ignore some abbreviations e.g. e.g. after which the capitalized word will be on a new line
+- [ ] ReadAllLines => StreamReader and maybe stdin as it could be faster
+- [ ] Ignore some abbreviations e.g. e.g. after which the capitalized word will be on a new line (hard to do with regex)
 - [x] .NET 6 => 7 
 - [x] Fix adding a whitespace after a paragraph

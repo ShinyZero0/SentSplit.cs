@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO; // Mono compatibility
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace sharpjoin
-{ // Mono compatibility
+namespace SentSplit
+// Mono compatibility
+{
     public class Program
     {
         public static void Main(string[] args)
         {
             if (args.Length == 0)
             {
-                Console.WriteLine("Usage: sharpjoin --join <file> or sharpjoin --split <file>");
+                Console.WriteLine("Usage: sentsplit --join <file> or sentsplit --split <file>");
                 return;
             }
             switch (args[0])
@@ -24,7 +24,7 @@ namespace sharpjoin
                     break;
 
                 default:
-                    Console.WriteLine("Usage: sharpjoin --join <file> or sharpjoin --split <file>");
+                    Console.WriteLine("Usage: sentsplit --join <file> or sentsplit --split <file>");
                     break;
             }
         }
@@ -33,28 +33,26 @@ namespace sharpjoin
         {
             string[] data = File.ReadAllLines(source);
             int i = 0;
-            var paras = new List<string>();
+            List<string> paras = new();
             while (i < data.Length)
             {
-                string startLine = data[i];
-                if (!string.IsNullOrWhiteSpace(startLine))
-                {
-                    int localI = i;
-                    var paraLines = new List<string>();
-                    string localLine = data[localI];
-                    while (!string.IsNullOrWhiteSpace(localLine) && localI < data.Length)
-                    {
-                        localLine = data[localI];
-                        paraLines.Add(localLine);
-                        localI++;
-                    }
-                    i = localI;
-                    paras.Add(Regex.Replace((String.Join(" ", paraLines)), " +$", ""));
-                }
-                else
+                string firstLine = data[i];
+                if (string.IsNullOrWhiteSpace(firstLine))
                 {
                     i++;
+                    continue;
                 }
+                int iLocal = i;
+                var paraLines = new List<string>();
+                string localLine = data[iLocal];
+                while (!string.IsNullOrWhiteSpace(localLine) && iLocal < data.Length)
+                {
+                    localLine = data[iLocal];
+                    paraLines.Add(localLine);
+                    iLocal++;
+                }
+                i = iLocal;
+                paras.Add(Regex.Replace((String.Join(" ", paraLines)), " +$", ""));
             }
             paras.ForEach(p => Console.WriteLine(p));
         }
@@ -65,16 +63,17 @@ namespace sharpjoin
             var output = new List<string>();
             foreach (string line in data)
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
                 string sentence = Regex.Replace(
-                        line,
-                        @"([\.\?!])\s+((--\s+)|(—\s+)?[A-ZА-Я])",
-                        match =>
-                        {
+                    line,
+                    @"([\.\?!])\s+((--\s+)|(—\s+)?[A-ZА-Я])",
+                    match =>
+                    {
                         var m = match.Groups;
                         return string.Format("{0}\n{1}", m[1].ToString(), m[2].ToString());
-                        }
-                        );
+                    }
+                );
                 string result = string.Format("{0}\n", sentence);
                 output.Add(result);
             }
