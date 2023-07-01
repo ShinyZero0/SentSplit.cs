@@ -10,20 +10,17 @@
       deps = with pkgs; [ clang zlib zlib.dev icu pkg-config ];
     in {
       apps.${system}.fetch-deps = {
+
         type = "app";
         program = "${self.packages.${system}.default.passthru.fetch-deps}";
       };
 
       packages.${system}.default = with pkgs;
         buildDotnetModule {
+
           pname = "SentSplit.cs";
           version = "0.0.1";
-          src = fetchFromGitHub {
-            owner = "ShinyZero0";
-            repo = "SentSplit.cs";
-            rev = "4789660a9a6a3a0fef0c8d0b16a71747df3b3a18";
-            sha256 = "sha256-cZom0UWS4OhR6izKG+cJ0iYe4mbszNiTxspPOfnmeo8=";
-          };
+          src = ./.;
           nugetDeps = ./deps.nix;
           dotnet-sdk = dotnetCorePackages.sdk_7_0;
           dotnet-runtime = dotnetCorePackages.runtime_7_0;
